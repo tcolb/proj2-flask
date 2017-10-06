@@ -32,7 +32,7 @@ tr.even {
 
 /* Custom row style for the current week */
 tr.current {
-		/* Bright!! */
+    /* Bright!! */
     background-color: GoldenRod;
 }
 
@@ -45,10 +45,10 @@ tr.current {
 
 /* Custom <td> for the date entry col */
 .class-schedule .date {
-	padding-left: 3ex;
-	padding-right: 3ex;
-	white-space: nowrap;
-	text-align: center;
+  padding-left: 3ex;
+  padding-right: 3ex;
+  white-space: nowrap;
+  text-align: center;
 }
 
 .class-schedule .topic {
