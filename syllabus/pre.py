@@ -53,7 +53,7 @@ def process(raw):
             entry['week'] = content
 
             # Start of my code
-            week_date = base.shift(weeks=int(content))
+            week_date = base.shift(weeks=int(content) - 1)
             entry['date'] = week_date.date()
 
             if arrow.now() >= week_date and arrow.now() < week_date.shift(weeks=1):
