@@ -8,7 +8,7 @@ logging.basicConfig(format='%(levelname)s:%(message)s',
 log = logging.getLogger(__name__)
 
 
-global base = arrow.now()
+base = arrow.now()
 
 def process(raw):
     """
@@ -52,15 +52,16 @@ def process(raw):
             entry['project'] = ""
             entry['week'] = content
 
-            week_date = base.shift(weeks=content)
-            entry['date'] = week_date
+            # Start of my code
+            week_date = base.shift(weeks=int(content))
+            entry['date'] = week_date.date()
 
-            if arrow.now() >= week_date and < week_date.shift(weeks=1):
-                entry['current'] = true
+            if arrow.now() >= week_date and arrow.now() < week_date.shift(weeks=1):
+                entry['current'] = True
             else:
-                entry['current'] = false
+                entry['current'] = False
 
-ays=7
+
         elif field == 'topic' or field == 'project':
             entry[field] = content
 
