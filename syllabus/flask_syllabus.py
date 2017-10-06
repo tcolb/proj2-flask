@@ -1,8 +1,8 @@
 """
 Very simple Flask web site, with one page
-displaying a course schedule.  We pre-process the 
-input file to set correct dates and highlight the 
-current week (if the academic term is in session). 
+displaying a course schedule.  We pre-process the
+input file to set correct dates and highlight the
+current week (if the academic term is in session).
 
 """
 
@@ -28,7 +28,7 @@ else:
     configuration = config.configuration(proxied=True)
 
 # Pre-processed schedule is global, so be careful to update
-# it atomically in the view functions. 
+# it atomically in the view functions.
 #
 schedule = pre.process(open(configuration.SYLLABUS))
 
@@ -67,7 +67,7 @@ def page_not_found(error):
 
 @app.template_filter( 'fmtdate' )
 def format_arrow_date( date ):
-    try: 
+    try:
         normal = arrow.get( date )
         return normal.format("ddd MM/DD/YYYY")
     except:
@@ -75,12 +75,10 @@ def format_arrow_date( date ):
 
 
 #############
-#    
+#
 # Set up to run from cgi-bin script, from
 # gunicorn, or stand-alone.
 #
 if __name__ == "__main__":
     app.logger.setLevel(logging.DEBUG)
     app.run(port=configuration.PORT, host="127.0.0.1")
-
-

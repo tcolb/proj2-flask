@@ -33,7 +33,7 @@ tr.even {
 /* Custom row style for the current week */
 tr.current {
 		/* Bright!! */
-		background-color: GoldenRod;
+    background-color: GoldenRod;
 }
 
 .class-schedule .week {

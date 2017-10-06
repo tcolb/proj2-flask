@@ -55,7 +55,7 @@ def process(raw):
             # Gets the starting date of the week
             week_date = base.shift(weeks=int(content) - 1)
             # Adds the key val pair 'date':arrow date to the dict
-            entry['date'] = week_date.date()
+            entry['date'] = week_date.format('MM-DD-YYYY')
 
             # Checks if the current date is more than the date start and less than the next weeks date starting
             # if true, this adds a key val pair 'current' with a boolean, indicating if its the current week or not
