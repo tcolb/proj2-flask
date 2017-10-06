@@ -1,5 +1,5 @@
 """
-Pre-process a syllabus (class schedule) file. 
+Pre-process a syllabus (class schedule) file.
 """
 import arrow
 import logging
@@ -8,18 +8,18 @@ logging.basicConfig(format='%(levelname)s:%(message)s',
 log = logging.getLogger(__name__)
 
 
-base = arrow.now()
+global base = arrow.now()
 
 def process(raw):
     """
     Line by line processing of syllabus file.  Each line that needs
     processing is preceded by 'head: ' for some string 'head'.  Lines
     may be continued if they don't contain ':'.  If # is the first
-    non-blank character on a line, it is a comment ad skipped. 
+    non-blank character on a line, it is a comment ad skipped.
     """
     field = None
     entry = { }
-    cooked = [ ] 
+    cooked = [ ]
     for line in raw:
         log.debug("Line: {}".format(line))
         line = line.strip()
@@ -30,17 +30,17 @@ def process(raw):
         if len(parts) == 1 and field:
             entry[field] = entry[field] + line + " "
             continue
-        if len(parts) == 2: 
+        if len(parts) == 2:
             field = parts[0]
             content = parts[1]
         else:
-            raise ValueError("Trouble with line: '{}'\n".format(line) + 
+            raise ValueError("Trouble with line: '{}'\n".format(line) +
                 "Split into |{}|".format("|".join(parts)))
 
         if field == "begin":
             try:
                 base = arrow.get(content, "MM/DD/YYYY")
-                # print("Base date {}".format(base.isoformat()))
+                print("Base date {}".format(base.isoformat()))
             except:
                 raise ValueError("Unable to parse date {}".format(content))
 
@@ -52,6 +52,15 @@ def process(raw):
             entry['project'] = ""
             entry['week'] = content
 
+            week_date = base.shift(weeks=content)
+            entry['date'] = week_date
+
+            if arrow.now() >= week_date and < week_date.shift(weeks=1):
+                entry['current'] = true
+            else:
+                entry['current'] = false
+
+ays=7
         elif field == 'topic' or field == 'project':
             entry[field] = content
 
@@ -71,8 +80,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-    
-    
-            
-    
