@@ -52,11 +52,15 @@ def process(raw):
             entry['project'] = ""
             entry['week'] = content
 
-            # Start of my code
+            # Gets the starting date of the week
             week_date = base.shift(weeks=int(content) - 1)
+            # Adds the key val pair 'date':arrow date to the dict
             entry['date'] = week_date.date()
 
-            if arrow.now() >= week_date and arrow.now() < week_date.shift(weeks=1):
+            # Checks if the current date is more than the date start and less than the next weeks date starting
+            # if true, this adds a key val pair 'current' with a boolean, indicating if its the current week or not
+            now = arrow.now()
+            if now >= week_date and now < week_date.shift(weeks=1):
                 entry['current'] = True
             else:
                 entry['current'] = False
